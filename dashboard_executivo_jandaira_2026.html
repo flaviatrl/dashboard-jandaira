@@ -1,0 +1,280 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.dash{padding:1.5rem 0;font-family:var(--font-sans)}
+.page-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border)}
+.page-header h1{font-size:20px;font-weight:500;color:var(--text-primary)}
+.page-header p{font-size:12px;color:var(--text-muted);margin-top:3px}
+.badge-period{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;background:var(--bg-accent);color:var(--text-accent);white-space:nowrap}
+.sec{margin-bottom:1.75rem}
+.sec-title{font-size:10px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--border)}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.kpi{background:var(--surface-1);border-radius:9px;padding:12px}
+.kpi-lbl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.kpi-val{font-size:19px;font-weight:500;color:var(--text-primary);line-height:1}
+.kpi-sub{font-size:10px;margin-top:4px;color:var(--text-muted)}
+.g{color:#1baf7a}.r{color:#e34948}.b{color:#2a78d6}.am{color:#eda100}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.card{background:var(--surface-1);border-radius:10px;padding:14px}
+.card-title{font-size:11px;font-weight:500;color:var(--text-secondary);margin-bottom:10px}
+.wf-row{display:flex;align-items:center;gap:6px;margin-bottom:7px;font-size:11px}
+.wf-lbl{flex:0 0 150px;color:var(--text-secondary);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wf-track{flex:1;position:relative;height:16px;background:var(--surface-0);border-radius:3px;overflow:hidden}
+.wf-fill{height:100%;border-radius:3px;position:absolute;top:0}
+.wf-v{flex:0 0 58px;text-align:right;font-weight:500;font-size:10px}
+.wf-p{flex:0 0 40px;text-align:right;font-size:10px;color:var(--text-muted)}
+.bar-row{display:flex;align-items:center;gap:6px;margin-bottom:7px;font-size:11px}
+.bar-lbl{flex:0 0 130px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:10px}
+.bar-track{flex:1;height:13px;background:var(--surface-0);border-radius:3px;overflow:hidden;position:relative}
+.bar-fill{height:100%;position:absolute;top:0;left:0;border-radius:3px}
+.bar-v{flex:0 0 36px;text-align:right;font-size:10px;color:var(--text-secondary)}
+.trend-row{display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:11px}
+.trend-row:last-child{border-bottom:none}
+.trend-mes{flex:0 0 24px;font-weight:500;color:var(--text-primary);font-size:11px}
+.trend-track{flex:1;height:11px;background:var(--surface-0);border-radius:2px;overflow:hidden;position:relative;align-self:center}
+.trend-fill{height:100%;position:absolute;top:0;left:0;border-radius:2px}
+.trend-v{flex:0 0 60px;text-align:right;font-size:10px;color:var(--text-secondary)}
+.trend-p{flex:0 0 38px;text-align:right;font-size:10px;font-weight:500}
+.det-table{width:100%;border-collapse:collapse;font-size:10px}
+.det-table th{color:var(--text-muted);font-weight:500;padding:4px 6px;border-bottom:0.5px solid var(--border);text-align:right;white-space:nowrap}
+.det-table th:first-child{text-align:left}
+.det-table td{padding:4px 6px;border-bottom:0.5px solid var(--border);text-align:right;white-space:nowrap}
+.det-table td:first-child{text-align:left;color:var(--text-secondary)}
+.det-table tr:last-child td{border-bottom:none;font-weight:500}
+.bp{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:500;background:#e1f5ee;color:#0f6e56}
+.bn{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:500;background:#fcebeb;color:#a32d2d}
+.bx{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;background:var(--surface-0);color:var(--text-muted)}
+.pct-cell{font-size:9px;color:var(--text-muted);background:var(--bg-accent);padding:2px 4px;border-radius:3px}
+.pct-neg{background:var(--bg-danger);color:var(--text-danger)}
+.pct-bold{background:var(--bg-accent);color:var(--text-accent);font-weight:500}
+.pct-bold-neg{background:var(--bg-danger);color:var(--text-danger);font-weight:500}
+.insight-list{list-style:none}
+.insight-list li{display:flex;gap:8px;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:11px;color:var(--text-secondary);line-height:1.5}
+.insight-list li:last-child{border-bottom:none}
+.dot{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px}
+.dg{background:#e1f5ee;color:#0f6e56}.dr{background:#fcebeb;color:#a32d2d}.da{background:#faeeda;color:#854f0b}
+.alert{border-radius:7px;padding:8px 12px;font-size:11px;line-height:1.6;margin-bottom:8px}
+.alert-s{background:var(--bg-success);color:var(--text-success);border:0.5px solid var(--border-success)}
+.alert-w{background:var(--bg-warning);color:var(--text-warning);border:0.5px solid var(--border-warning)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;font-size:10px;color:var(--text-secondary)}
+.leg-sq{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:3px}
+</style>
+
+<div class="dash">
+
+  <div class="page-header">
+    <div>
+      <h1>Base Jandaíra — dashboard executivo 2026</h1>
+      <p>Fechamento financeiro mensal · Receita, custos, margens e rentabilidade</p>
+    </div>
+    <span class="badge-period">Jan – Mai 2026</span>
+  </div>
+
+  <!-- KPIs -->
+  <div class="sec">
+    <p class="sec-title">Indicadores-chave do período</p>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-lbl">Receita bruta</div><div class="kpi-val">R$ 665k</div><div class="kpi-sub">Acumulado Jan–Mai</div></div>
+      <div class="kpi"><div class="kpi-lbl">Receita líquida</div><div class="kpi-val">R$ 557k</div><div class="kpi-sub">Após impostos (−16,2%)</div></div>
+      <div class="kpi"><div class="kpi-lbl">Margem contribuição</div><div class="kpi-val b">53,6%</div><div class="kpi-sub">R$ 299k acumulado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Lucro da operação</div><div class="kpi-val g">49,4%</div><div class="kpi-sub">R$ 275k acumulado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Margem matura¹</div><div class="kpi-val g">56,4%</div><div class="kpi-sub">¹ Média Mar–Mai</div></div>
+      <div class="kpi"><div class="kpi-lbl">Resultado da base</div><div class="kpi-val g">50,2%</div><div class="kpi-sub">R$ 280k acumulado</div></div>
+    </div>
+  </div>
+
+  <!-- Cascata + Lucro mensal -->
+  <div class="grid2 sec">
+    <div class="card">
+      <p class="card-title">Cascata de resultado — acumulado Jan–Mai</p>
+      <div id="wf"></div>
+    </div>
+    <div class="card">
+      <p class="card-title">Lucro da operação por mês</p>
+      <div id="trend"></div>
+      <div style="margin-top:12px">
+        <p class="card-title" style="margin-bottom:8px">Composição dos custos operacionais (Mar–Mai)</p>
+        <div id="custos"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos Chart.js -->
+  <div class="grid2 sec">
+    <div class="card">
+      <p class="card-title">Receita líquida vs. custos operacionais (R$)</p>
+      <div class="legend">
+        <span><span class="leg-sq" style="background:#2a78d6"></span>Receita líquida</span>
+        <span><span class="leg-sq" style="background:#e34948"></span>Custos operac.</span>
+        <span><span class="leg-sq" style="background:#1baf7a"></span>Margem contrib.</span>
+      </div>
+      <div style="position:relative;height:190px"><canvas id="c1" role="img" aria-label="Receita, custos e margem por mês">Receita líquida, custos operacionais e margem de contribuição por mês.</canvas></div>
+    </div>
+    <div class="card">
+      <p class="card-title">Evolução da margem de contribuição (%)</p>
+      <div style="position:relative;height:220px"><canvas id="c2" role="img" aria-label="Margem de contribuição percentual por mês">Margem de contribuição percentual por mês.</canvas></div>
+    </div>
+  </div>
+
+  <!-- Tabela detalhada -->
+  <div class="sec">
+    <p class="sec-title">Detalhamento mensal — valor (R$) e % sobre receita líquida</p>
+    <div style="background:var(--surface-1);border-radius:10px;padding:14px;overflow-x:auto">
+      <table class="det-table">
+        <thead id="th"></thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Diagnóstico -->
+  <div class="sec">
+    <p class="sec-title">Diagnóstico e pontos de atenção</p>
+    <div class="alert alert-s">Operação atingiu maturidade em março e sustentou margem líquida acima de 49% nos três meses seguintes — desempenho robusto para contratos de serviços de campo.</div>
+    <div class="alert alert-w">Fevereiro registrou resultado negativo (−R$ 19,6k), reflexo do ramp-up: R$ 31k em custos contra apenas R$ 14,7k de receita líquida.</div>
+    <ul class="insight-list" style="margin-top:10px">
+      <li><span class="dot dg">✓</span><span><strong>Folha bem dimensionada:</strong> salários + encargos representam ~56% dos custos em operação plena — adequado para equipe própria de campo.</span></li>
+      <li><span class="dot da">!</span><span><strong>Locação de caminhões (R$ 9k/mês fixo):</strong> 11,9% dos custos operacionais. Avaliar viabilidade de aquisição própria a partir do volume atual.</span></li>
+      <li><span class="dot da">!</span><span><strong>Combustível variável:</strong> oscilou entre R$ 7,8k e R$ 9,3k. Monitorar consumo e rotas para conter variação.</span></li>
+      <li><span class="dot dr">✕</span><span><strong>Rescisão em maio (R$ 6,8k):</strong> evento pontual. Se recorrente, impacto anualizado de ~R$ 82k reduz a margem em ~3,8 p.p.</span></li>
+      <li><span class="dot dg">✓</span><span><strong>Infraestrutura + administrativo controlados:</strong> apenas 4,3% da receita líquida acumulada — estrutura enxuta.</span></li>
+      <li><span class="dot dg">✓</span><span><strong>Crescimento estável da receita:</strong> +4,3% em abril e +4,1% em maio, sinalizando contrato em expansão.</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const meses = ['Jan','Fev','Mar','Abr','Mai'];
+const recLiq    = [20407, 14681, 168399, 173929, 179867];
+const custosOp  = [100, 31222, 83189, 68805, 74998];
+const margem    = [20307, -16541, 85210, 105124, 104869];
+const margemPct = [100.5, -112.7, 50.6, 60.4, 58.3];
+const lucro     = [20307, -18070, 71834, 101217, 99935];
+const resultBase= [20307, -19599, 79993, 100984, 98333];
+const recBruta  = [23871, 17286, 199336, 207826, 216316];
+
+const fmtK = v => (v<0?'−':'')+'R$\u00a0'+Math.abs(v/1000).toFixed(0)+'k';
+
+// Waterfall
+const wfData = [
+  {l:'Receita líquida',    v:557282,  p:100.0,  c:'#2a78d6', from:0,      total:true},
+  {l:'(−) Custos operac.',v:-258314, p:-46.4,  c:'#e34948', from:557282, total:false},
+  {l:'Margem de contrib.', v:298968,  p:53.6,   c:'#2a78d6', from:0,      total:true},
+  {l:'(−) Administrativo',v:-9475,   p:-1.7,   c:'#e34948', from:298968, total:false},
+  {l:'Res. operacional',   v:289493,  p:51.9,   c:'#2a78d6', from:0,      total:true},
+  {l:'(−) Infraestrutura',v:-14271,  p:-2.6,   c:'#e34948', from:289493, total:false},
+  {l:'Lucro da operação',  v:275222,  p:49.4,   c:'#1baf7a', from:0,      total:true},
+];
+const maxWf = 557282;
+const wfEl = document.getElementById('wf');
+wfData.forEach(d => {
+  const w = Math.abs(d.v)/maxWf*100;
+  const l = d.total ? 0 : (d.v<0 ? (d.from+d.v)/maxWf*100 : d.from/maxWf*100);
+  const vc = d.v<0?'#e34948':d.total?d.c:'#2a78d6';
+  wfEl.innerHTML += `<div class="wf-row">
+    <div class="wf-lbl">${d.l}</div>
+    <div class="wf-track"><div class="wf-fill" style="width:${w.toFixed(1)}%;left:${d.total?0:l.toFixed(1)}%;background:${d.c};opacity:${d.total?1:.8}"></div></div>
+    <div class="wf-v" style="color:${vc}">${fmtK(d.v)}</div>
+    <div class="wf-p">${d.p>0?'+':''}${d.p.toFixed(1)}%</div>
+  </div>`;
+});
+
+// Trend
+const tEl = document.getElementById('trend');
+const maxT = 101217;
+[{m:'Jan',v:20307,p:99.5},{m:'Fev',v:-18070,p:-123.1},{m:'Mar',v:71834,p:42.7},{m:'Abr',v:101217,p:58.2},{m:'Mai',v:99935,p:55.6}].forEach(d => {
+  const w = Math.abs(d.v)/maxT*100;
+  const c = d.v<0?'#e34948':'#1baf7a';
+  tEl.innerHTML += `<div class="trend-row">
+    <div class="trend-mes">${d.m}</div>
+    <div class="trend-track"><div class="trend-fill" style="width:${w.toFixed(1)}%;background:${c}"></div></div>
+    <div class="trend-v">${fmtK(d.v)}</div>
+    <div class="trend-p" style="color:${c}">${d.p.toFixed(1)}%</div>
+  </div>`;
+});
+
+// Custos
+const cEl = document.getElementById('custos');
+const cItems = [
+  {l:'Salários + encargos',v:55.9,c:'#2a78d6'},
+  {l:'Locação caminhões',v:11.9,c:'#1baf7a'},
+  {l:'Combustível',v:11.2,c:'#eda100'},
+  {l:'Vale alimentação',v:4.0,c:'#4a3aa7'},
+  {l:'Rescisões',v:3.0,c:'#e34948'},
+  {l:'Outros',v:13.9,c:'#888780'},
+];
+cItems.forEach(d => {
+  cEl.innerHTML += `<div class="bar-row">
+    <div class="bar-lbl">${d.l}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:${d.v}%;background:${d.c}"></div></div>
+    <div class="bar-v">${d.v.toFixed(1)}%</div>
+  </div>`;
+});
+
+// Chart.js
+const tickColor = '#898781';
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+const baseOpts = {
+  responsive:true, maintainAspectRatio:false,
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{ticks:{color:tickColor,font:{size:10}},grid:{color:gridColor},border:{display:false}},
+    y:{ticks:{color:tickColor,font:{size:10},callback:v=>(v<0?'-':'')+'R$'+(Math.abs(v)/1000).toFixed(0)+'k'},grid:{color:gridColor},border:{display:false}}
+  }
+};
+
+new Chart(document.getElementById('c1'),{type:'bar',data:{labels:meses,datasets:[
+  {label:'Receita líquida',data:recLiq,backgroundColor:'#2a78d6',borderRadius:4,borderSkipped:'bottom'},
+  {label:'Custos',data:custosOp,backgroundColor:'#e34948',borderRadius:4,borderSkipped:'bottom'},
+  {label:'Margem',data:margem,backgroundColor:margem.map(v=>v<0?'rgba(227,73,72,.5)':'rgba(27,175,122,.8)'),borderRadius:4,borderSkipped:'bottom'},
+]},options:{...baseOpts}});
+
+new Chart(document.getElementById('c2'),{type:'line',data:{labels:meses,datasets:[
+  {label:'Margem %',data:margemPct,borderColor:'#1baf7a',backgroundColor:'rgba(27,175,122,0.08)',fill:true,tension:0.35,pointBackgroundColor:margemPct.map(v=>v<0?'#e34948':'#1baf7a'),pointRadius:5,pointBorderColor:'transparent'},
+  {label:'Zero',data:[0,0,0,0,0],borderColor:isDark?'rgba(255,255,255,.15)':'rgba(0,0,0,.15)',borderDash:[4,4],pointRadius:0,fill:false},
+]},options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,ticks:{...baseOpts.scales.y.ticks,callback:v=>v+'%'}}}}});
+
+// Tabela detalhada
+const rows = [
+  {l:'Receita bruta',    v:recBruta,  tipo:'rec'},
+  {l:'Receita líquida',  v:recLiq,    tipo:'rec'},
+  {l:'Custos operac.',   v:custosOp,  tipo:'cost'},
+  {l:'Margem contrib.',  v:margem,    tipo:'key'},
+  {l:'Lucro da operação',v:lucro,     tipo:'key'},
+  {l:'Resultado da base',v:resultBase,tipo:'key'},
+];
+const totRecLiq = recLiq.reduce((a,b)=>a+b,0);
+const pct = (v,ref) => ref===0?'—':(v/ref*100).toFixed(1)+'%';
+
+let thHtml = '<tr><th>Indicador</th>';
+meses.forEach((m,i)=>{ thHtml+=`<th colspan="2">${m}</th>`; });
+thHtml+='<th colspan="2">Acumulado</th></tr><tr><th></th>';
+meses.forEach(()=>{ thHtml+='<th>R$</th><th style="color:var(--text-accent);font-size:9px">%</th>'; });
+thHtml+='<th>R$</th><th style="color:var(--text-accent);font-size:9px">%</th></tr>';
+document.getElementById('th').innerHTML = thHtml;
+
+const tb = document.getElementById('tb');
+rows.forEach(({l,v,tipo})=>{
+  const acum = v.reduce((a,b)=>a+b,0);
+  const acumPct = pct(acum,totRecLiq);
+  const isKey = tipo==='key';
+  let row=`<tr><td>${l}</td>`;
+  v.forEach((val,i)=>{
+    const ref=recLiq[i];
+    const p=pct(val,ref);
+    const neg=val<0;
+    const badgeCls = tipo==='rec'?'bx':(neg?'bn':'bp');
+    const pctCls = isKey?(neg?'pct-cell pct-bold-neg':'pct-cell pct-bold'):(neg?'pct-cell pct-neg':'pct-cell');
+    row+=`<td><span class="${badgeCls}">${fmtK(val)}</span></td><td><span class="${pctCls}">${p}</span></td>`;
+  });
+  const acumNeg=acum<0;
+  const aBadge=tipo==='rec'?'bx':(acumNeg?'bn':'bp');
+  const aPctCls=isKey?(acumNeg?'pct-cell pct-bold-neg':'pct-cell pct-bold'):(acumNeg?'pct-cell pct-neg':'pct-cell');
+  row+=`<td><span class="${aBadge}">${fmtK(acum)}</span></td><td><span class="${aPctCls}">${acumPct}</span></td></tr>`;
+  tb.innerHTML+=row;
+});
+</script>
